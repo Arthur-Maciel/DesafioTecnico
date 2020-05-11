@@ -6,7 +6,7 @@ public class Costumer {
 	private String cnpj;
 	private String businessArea;
 	
-	public Costumer(String name, String cnpj, String businessArea) {
+	public Costumer(String cnpj, String name,String businessArea) {
 		this.name = name;
 		this.cnpj = cnpj;
 		this.businessArea = businessArea;

@@ -1,18 +1,16 @@
 package com.arthurmaciel.desafio.file;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class FileDAO {
 
-	public Scanner readFile(String path) {
-		Scanner reader;
+	public List<String> readFile(String path) {
 		try {
-			reader = new Scanner(new File(path));
-			
-			return reader;
-		} catch (FileNotFoundException e) {
+			return Files.readAllLines(Paths.get(path));
+		} catch (IOException e) {
 			return null;
 		}				
 	}
