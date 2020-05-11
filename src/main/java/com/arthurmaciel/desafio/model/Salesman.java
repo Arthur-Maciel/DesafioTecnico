@@ -6,10 +6,10 @@ public class Salesman {
 	private String cpf;
 	private double salary;
 	
-	public Salesman(String name, String cpf, String separetedLine) {
+	public Salesman(String cpf, String name, String salary) {
 		this.name = name;
 		this.cpf = cpf;
-		this.salary = Double.valueOf(separetedLine);
+		this.salary = Double.valueOf(salary);
 	}
 
 	public String getName() {

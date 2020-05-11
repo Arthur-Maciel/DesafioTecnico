@@ -2,23 +2,28 @@ package com.arthurmaciel.desafio.file;
 
 public class Report {
 	
-	private int qtsCostumers = 0;
+	private int qtdCostumers = 0;
+	private int qtdSalesmen = 0;
 	private String fileName;
+	private String worstSalesman;
 	
 	public Report(String fileName) {
 		this.fileName = fileName;
 	}
-	
-	public void getQtdCostumers() {
-		
+	public String getFileName() {
+		return fileName + "done";
 	}
 	
-	public void getQtdSalesman() {
-		
+	public int getQtdCostumers() {
+		return this.qtdCostumers;
+	}
+	
+	public int getQtdSalesman() {
+		return this.qtdSalesmen;
 	}
 
-	public void getMostExpensiveSaleId() {
-		
+	public String getMostExpensiveSaleId() {
+		return worstSalesman;
 	}
 	
 	public void getWorstSalesman() {
@@ -26,18 +31,24 @@ public class Report {
 	}
 	
 	public void addQtdCostumers() {
-		this.qtsCostumers++;
+		this.qtdCostumers++;
 	}
 	
-	public void setQtdSalesman() {
-		
+	public void addQtdSalesman() {
+		this.qtdSalesmen++;
 	}
 
 	public void setMostExpensiveSaleId() {
 		
 	}
 	
-	public void setWorstSalesman() {
-		
+	public void setWorstSalesman(String worstSalesman) {
+		this.worstSalesman = worstSalesman;
+	}
+	
+	@Override
+	public String toString() {
+		return "Report [qtdCostumers=" + qtdCostumers + ", qtdSalesmen=" + qtdSalesmen + ", fileName=" + fileName
+				+ ", worstSalesman=" + worstSalesman + "]";
 	}
 }
