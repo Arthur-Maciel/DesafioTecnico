@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 import com.arthurmaciel.desafio.model.Costumer;
 import com.arthurmaciel.desafio.model.Sale;
 import com.arthurmaciel.desafio.model.Salesman;
+import com.arthurmaciel.desafio.model.Item;
 import com.arthurmaciel.desafio.exception.FolderIsEmptyException;
 import com.arthurmaciel.desafio.exception.InvalidIDException;
 
@@ -54,6 +55,7 @@ public class FileDecoder {
 			}
 			
 			decodeWorstSalesman();
+			mostExpensiveSale();
 		}
 	}
 	
@@ -72,7 +74,26 @@ public class FileDecoder {
 	}
 	
 	private void decodeSale(String[] sale) {
+		String salesmanName = sale[3];
+		Sale aux = new Sale(sale[1], findSalesman(salesmanName));
 		
+		String[] items = sale[2].replaceAll("\\[|\\]", "").split(",");
+
+		for(int i = 0; i < items.length ; i++) {
+			String[] itemDetail = items[i].split("-");
+			
+			aux.addItem(new Item(itemDetail[0], itemDetail[1], itemDetail[2]));
+		}
+		
+		sales.add(aux);
+	}
+	
+	private Salesman findSalesman(String name) {
+		return salesmen.stream().filter(p -> p.getName().equals(name)).findFirst().get();
+	}
+	
+	private void mostExpensiveSale() {
+		report.setMostExpensiveSaleId(sales.stream().reduce((sale1, sale2) -> sale1.getTotal() > sale2.getTotal() ? sale1 : sale2).get().getSaleId());
 	}
 	
 	private double salesSalesman(String salesmanName){

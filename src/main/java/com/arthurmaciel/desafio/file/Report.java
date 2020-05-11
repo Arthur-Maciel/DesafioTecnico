@@ -6,6 +6,7 @@ public class Report {
 	private int qtdSalesmen = 0;
 	private String fileName;
 	private String worstSalesman;
+	private String saleID;
 	
 	public Report(String fileName) {
 		this.fileName = fileName;
@@ -23,11 +24,11 @@ public class Report {
 	}
 
 	public String getMostExpensiveSaleId() {
-		return worstSalesman;
+		return this.saleID;
 	}
 	
-	public void getWorstSalesman() {
-		
+	public String getWorstSalesman() {
+		return this.worstSalesman;
 	}
 	
 	public void addQtdCostumers() {
@@ -38,8 +39,8 @@ public class Report {
 		this.qtdSalesmen++;
 	}
 
-	public void setMostExpensiveSaleId() {
-		
+	public void setMostExpensiveSaleId(String saleID) {
+		this.saleID = saleID;
 	}
 	
 	public void setWorstSalesman(String worstSalesman) {
@@ -48,7 +49,8 @@ public class Report {
 	
 	@Override
 	public String toString() {
-		return "Report [qtdCostumers=" + qtdCostumers + ", qtdSalesmen=" + qtdSalesmen + ", fileName=" + fileName
-				+ ", worstSalesman=" + worstSalesman + "]";
+		return "Report [saleID=" + saleID + ", qtdCostumers=" + qtdCostumers + ", qtdSalesmen=" + qtdSalesmen
+				+ ", fileName=" + fileName + ", worstSalesman=" + worstSalesman + "]";
 	}
+	
 }
