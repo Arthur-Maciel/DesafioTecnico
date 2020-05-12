@@ -26,8 +26,7 @@ public class Application {
 			
 			path.register(
 			          watchService, 
-			            StandardWatchEventKinds.ENTRY_CREATE,  
-			                StandardWatchEventKinds.ENTRY_MODIFY);
+			            StandardWatchEventKinds.ENTRY_CREATE);
 			 
 			        WatchKey key;
 			        while ((key = watchService.take()) != null) {
@@ -36,9 +35,9 @@ public class Application {
 			                System.out.println(
 			                  "Event kind:" + event.kind().name() 
 			                    + ". File affected: " + event.context() + ".");
+			                Thread.sleep(2000);
+			                decoder.decodeFile(PATH+event.context().toString());
 			            }
-			        	Thread.sleep(2000);
-			        	decoder.decodeFile();
 			            key.reset();
 			        }
 		} catch (IOException e) {
