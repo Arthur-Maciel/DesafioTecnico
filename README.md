@@ -1,5 +1,7 @@
 # Desafio técnico para desenvolvedor
 
+![Diagrama](/image/diagrama.png)
+
 Dados de entrada devem estar em '/home/data/in'
 
 Dados de saida irão para '/home/data/out'
