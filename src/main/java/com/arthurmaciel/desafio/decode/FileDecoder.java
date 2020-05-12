@@ -26,7 +26,7 @@ public class FileDecoder {
 	private static final String SPLITLINE = "ç";
 	private static final int MAXSIZESPLIT = 4;
 	private static final String FILEPATH = "/home/data/in";
-	
+
 	public FileDecoder() {
 		fileDAO = new FileDAO();
 	}
@@ -34,41 +34,55 @@ public class FileDecoder {
 	public void decodeFile() {
 		for(String file : getFilesFromFolder()) {
 
-			if(!isFileDone(getFileName(file))) {
+			List<String> lines = fileDAO.readFile(file);
+			report = new Report(getFileName(file));
+			modelDAO = new ModelDAO();
 
-				List<String> lines = fileDAO.readFile(file);
-				report = new Report(getFileName(file));
-				modelDAO = new ModelDAO();
-
-				for(String line : lines) {
-					String[] split = line.split(SPLITLINE);
-					if(split.length == MAXSIZESPLIT) {
-						try {
-							checkID(split);	
-						}catch(InvalidIDException e) {
-							System.out.println(e + "\n File:" + getFileName(file));
-						}
-					}					
-				}
-				
-				if(modelDAO.getSalesmen().size() != 0)
-					decodeWorstSalesman();
-				
-				mostExpensiveSale();
-				fileDAO.writeFile(report);
+			for(String line : lines) {
+				String[] split = line.split(SPLITLINE);
+				if(split.length == MAXSIZESPLIT) {
+					try {
+						checkID(split);	
+					}catch(InvalidIDException e) {
+						System.out.println(e + "\n File:" + getFileName(file));
+					}
+				}					
 			}
+
+			if(modelDAO.getSalesmen().size() != 0)
+				decodeWorstSalesman();
+
+			mostExpensiveSale();
+			fileDAO.writeFile(report);
 		}
 	}
 
-	private boolean isFileDone(String fileName) {
-		if(fileDAO.getFilesDone().contains(fileName)) {
-			return true;
-		} 
-		return false;
+	public void decodeFile(String file) {
+		List<String> lines = fileDAO.readFile(file);
+		report = new Report(getFileName(file));
+		modelDAO = new ModelDAO();
+
+		for(String line : lines) {
+			String[] split = line.split(SPLITLINE);
+			if(split.length == MAXSIZESPLIT) {
+				try {
+					checkID(split);	
+				}catch(InvalidIDException e) {
+					System.out.println(e + "\n File:" + getFileName(file));
+				}
+			}					
+		}
+
+		if(modelDAO.getSalesmen().size() != 0)
+			decodeWorstSalesman();
+
+		mostExpensiveSale();
+
+		System.out.println(report);
+		fileDAO.writeFile(report);
 	}
 
 	private void checkID(String[] line) {
-
 		switch(line[0]) {
 		case "001":
 			decodeSalesman(line);
@@ -135,10 +149,8 @@ public class FileDecoder {
 
 	private List<String> getFilesFromFolder() {
 		try (Stream<Path> walk = Files.walk(Paths.get(FILEPATH))) {
-
 			return walk.filter(Files::isRegularFile)
 					.map(x -> x.toString()).collect(Collectors.toList());
-
 		} catch (IOException e) {
 			throw new FolderDoesNotExistException();
 		}
@@ -146,9 +158,7 @@ public class FileDecoder {
 
 	private String getFileName(String path) {
 		String[] aux = path.split("/");
-
 		String[] file = aux[aux.length-1].split("\\.");
-
 		return file[0];
 	}
 
