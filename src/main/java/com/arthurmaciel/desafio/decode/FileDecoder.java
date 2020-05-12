@@ -30,6 +30,14 @@ public class FileDecoder {
 	public FileDecoder() {
 		fileDAO = new FileDAO();
 	}
+	
+	
+	//This contructor is used on tests
+	public FileDecoder(ModelDAO model, FileDAO file, Report report) {
+		modelDAO = model;
+		fileDAO = file;
+		this.report = report;
+	}
 
 	public void decodeFile() {
 		for(String file : getFilesFromFolder()) {
@@ -79,7 +87,7 @@ public class FileDecoder {
 		fileDAO.writeFile(report);
 	}
 
-	private void checkID(String[] line) {
+	public void checkID(String[] line) {
 		switch(line[0]) {
 		case "001":
 			decodeSalesman(line);
@@ -110,7 +118,7 @@ public class FileDecoder {
 		salesSalesman(salesman1.getName()) < salesSalesman(salesman2.getName()) ? salesman1 : salesman2).get().getName());
 	}
 
-	private void decodeSale(String[] sale) {
+	public void decodeSale(String[] sale) {
 		String salesmanName = sale[3];
 		Sale aux = new Sale(sale[1], findSalesman(salesmanName));
 
@@ -125,7 +133,7 @@ public class FileDecoder {
 		modelDAO.addSale(aux);
 	}
 
-	private Salesman findSalesman(String name) {
+	public Salesman findSalesman(String name) {
 		return modelDAO.getSalesmen().stream().filter(p -> p.getName().equals(name)).findFirst().orElse(null);
 	}
 
@@ -133,7 +141,7 @@ public class FileDecoder {
 		report.setMostExpensiveSaleId(modelDAO.getSales().stream().reduce((sale1, sale2) -> sale1.getTotal() > sale2.getTotal() ? sale1 : sale2).get().getSaleId());
 	}
 
-	private double salesSalesman(String salesmanName){
+	public double salesSalesman(String salesmanName){
 		double total = 0;
 
 		for(Sale sale : modelDAO.getSales()){
@@ -153,7 +161,7 @@ public class FileDecoder {
 		}
 	}
 
-	private String getFileName(String path) {
+	public String getFileName(String path) {
 		String[] aux = path.split("/");
 		String[] file = aux[aux.length-1].split("\\.");
 		return file[0];
