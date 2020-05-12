@@ -25,8 +25,8 @@ public class FileDecoder {
 	private ModelDAO modelDAO;
 	private static final String SPLITLINE = "ç";
 	private static final int MAXSIZESPLIT = 4;
-	private static final String FILEPATH = "/home/arthur/eclipse-workspace/DesafioTecnico/data/";
-
+	private static final String FILEPATH = "/home/data/in";
+	
 	public FileDecoder() {
 		fileDAO = new FileDAO();
 	}
@@ -43,17 +43,17 @@ public class FileDecoder {
 				for(String line : lines) {
 					String[] split = line.split(SPLITLINE);
 					if(split.length == MAXSIZESPLIT) {
-
 						try {
 							checkID(split);	
 						}catch(InvalidIDException e) {
 							System.out.println(e + "\n File:" + getFileName(file));
 						}
-
 					}					
 				}
-
-				decodeWorstSalesman();
+				
+				if(modelDAO.getSalesmen().size() != 0)
+					decodeWorstSalesman();
+				
 				mostExpensiveSale();
 
 				System.out.println(report);
@@ -117,7 +117,7 @@ public class FileDecoder {
 	}
 
 	private Salesman findSalesman(String name) {
-		return modelDAO.getSalesmen().stream().filter(p -> p.getName().equals(name)).findFirst().get();
+		return modelDAO.getSalesmen().stream().filter(p -> p.getName().equals(name)).findFirst().orElse(null);
 	}
 
 	private void mostExpensiveSale() {

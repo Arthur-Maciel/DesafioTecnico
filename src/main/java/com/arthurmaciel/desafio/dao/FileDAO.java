@@ -14,8 +14,12 @@ import com.arthurmaciel.desafio.model.Report;
 
 public class FileDAO {
 	
-	private static final String OUTPUTPATH = "/home/arthur/eclipse-workspace/DesafioTecnico/report/";
+	private static final String OUTPUTPATH = "/home/data/out";
 	private static final String FILEEXTENSION = ".report.dat";
+	private static final String REPORTCOSTUMERS = "• Amount of clients in the input file: ";
+	private static final String REPORTSALESMEN = "• Amount of salesman in the input file: ";
+	private static final String REPORTSALE = "• ID of the most expensive sale: ";
+	private static final String REPORTWORSTSALESMAN = "• Worst salesman: ";
 	private List<String> filesDone;
 	
 	public FileDAO() {
@@ -35,10 +39,10 @@ public class FileDAO {
 		try {
 			fileWriter = new FileWriter(OUTPUTPATH + report.getFileName() + FILEEXTENSION);
 			PrintWriter printWriter = new PrintWriter(fileWriter);
-	        printWriter.println("• Amount of clients in the input file: " + report.getQtdCostumers());
-	        printWriter.println("• Amount of salesman in the input file: " + report.getQtdSalesman() );
-	        printWriter.println("• ID of the most expensive sale: " + report.getMostExpensiveSaleId());
-	        printWriter.println("• Worst salesman: " + report.getWorstSalesman());
+	        printWriter.println(REPORTCOSTUMERS + report.getQtdCostumers());
+	        printWriter.println(REPORTSALESMEN + report.getQtdSalesman() );
+	        printWriter.println(REPORTSALE + report.getMostExpensiveSaleId());
+	        printWriter.println(REPORTWORSTSALESMAN + report.getWorstSalesman());
 	        printWriter.close();
 	        
 	        filesDone.add(report.getFileName());
