@@ -27,4 +27,4 @@ Dados base
 Mudanças possíveis:
 
 	* Se ao utilizar um arquivo CSV é necessário somente alterar o valor da constante 'SPLITLINE' para ',' ou ';'
-	* Se quiser alterar tanto o PATH de entrada quando o de saída alterar valor de 'directory.input' e 'directory.output' em 'src/resources/application.properties'
+	* Se quiser alterar tanto o PATH de entrada quando o de saída. Para entrada deve-se mudar em Application (PATH) e FileDecoder (FILEPATH), para saida em FileDAO (OUTPUTPATH)
