@@ -6,7 +6,7 @@ public class InvalidIDException extends RuntimeException{
 	
 	@Override
 	public String getMessage() {
-		return "This ID is invalid";
+		return "There is an invalid ID in this file";
 	}
 
 }
