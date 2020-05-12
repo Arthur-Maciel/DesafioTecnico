@@ -26,8 +26,7 @@ public class Application {
 			
 			path.register(
 			          watchService, 
-			            StandardWatchEventKinds.ENTRY_CREATE,  
-			                StandardWatchEventKinds.ENTRY_MODIFY);
+			            StandardWatchEventKinds.ENTRY_CREATE);
 			 
 			        WatchKey key;
 			        while ((key = watchService.take()) != null) {
