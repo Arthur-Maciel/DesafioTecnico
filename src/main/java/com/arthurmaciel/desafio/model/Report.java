@@ -12,7 +12,7 @@ public class Report {
 		this.fileName = fileName;
 	}
 	public String getFileName() {
-		return fileName + "done";
+		return fileName;
 	}
 	
 	public int getQtdCostumers() {
