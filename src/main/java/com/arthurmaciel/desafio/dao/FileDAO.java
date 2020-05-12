@@ -1,4 +1,4 @@
-package com.arthurmaciel.desafio.file;
+package com.arthurmaciel.desafio.dao;
 
 import java.io.IOException;
 import java.nio.file.Files;

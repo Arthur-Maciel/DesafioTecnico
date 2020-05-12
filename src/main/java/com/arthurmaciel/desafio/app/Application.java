@@ -2,7 +2,7 @@ package com.arthurmaciel.desafio.app;
 
 import java.io.FileNotFoundException;
 
-import com.arthurmaciel.desafio.file.FileDecoder;
+import com.arthurmaciel.desafio.decode.FileDecoder;
 
 public class Application {
 	

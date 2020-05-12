@@ -1,4 +1,4 @@
-package com.arthurmaciel.desafio.file;
+package com.arthurmaciel.desafio.model;
 
 public class Report {
 	
