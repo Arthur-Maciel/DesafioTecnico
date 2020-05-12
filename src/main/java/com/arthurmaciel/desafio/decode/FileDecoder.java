@@ -34,7 +34,7 @@ public class FileDecoder {
 	public void decodeFile() {
 		for(String file : getFilesFromFolder()) {
 			List<String> lines = fileDAO.readFile(file);
-			report = new Report(file);
+			report = new Report(getFileName(file));
 			modelDAO = new ModelDAO();
 			for(String line : lines) {
 				String[] split = line.split(SPLITLINE);
@@ -47,6 +47,7 @@ public class FileDecoder {
 			mostExpensiveSale();
 			
 			System.out.println(report);
+			fileDAO.writeFile(report);
 		}
 	}
 	
@@ -126,6 +127,14 @@ public class FileDecoder {
 		} catch (IOException e) {
 			throw new FolderDoesNotExistException();
 		}
+	}
+	
+	private String getFileName(String path) {
+		String[] aux = path.split("/");
+
+        String[] file = aux[aux.length-1].split("\\.");
+
+        return file[0];
 	}
 
 }
