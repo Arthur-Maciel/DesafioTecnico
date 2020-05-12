@@ -58,7 +58,6 @@ public class FileDecoder {
 	}
 
 	public void decodeFile(String file) {
-
 		List<String> lines = fileDAO.readFile(file);
 		report = new Report(getFileName(file));
 		modelDAO = new ModelDAO();
@@ -78,11 +77,9 @@ public class FileDecoder {
 
 		mostExpensiveSale();
 		fileDAO.writeFile(report);
-
 	}
 
 	private void checkID(String[] line) {
-
 		switch(line[0]) {
 		case "001":
 			decodeSalesman(line);
@@ -149,10 +146,8 @@ public class FileDecoder {
 
 	private List<String> getFilesFromFolder() {
 		try (Stream<Path> walk = Files.walk(Paths.get(FILEPATH))) {
-
 			return walk.filter(Files::isRegularFile)
 					.map(x -> x.toString()).collect(Collectors.toList());
-
 		} catch (IOException e) {
 			throw new FolderDoesNotExistException();
 		}
@@ -160,9 +155,7 @@ public class FileDecoder {
 
 	private String getFileName(String path) {
 		String[] aux = path.split("/");
-
 		String[] file = aux[aux.length-1].split("\\.");
-
 		return file[0];
 	}
 
