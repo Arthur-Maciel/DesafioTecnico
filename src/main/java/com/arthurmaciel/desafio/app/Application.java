@@ -1,5 +1,15 @@
 package com.arthurmaciel.desafio.app;
 
-public class Application {
+import java.io.FileNotFoundException;
 
+import com.arthurmaciel.desafio.decode.FileDecoder;
+
+public class Application {
+	
+	public static void main(String args[]) throws FileNotFoundException {
+		FileDecoder decoder = new FileDecoder();
+		
+		decoder.decodeFile();
+	}
+	
 }
