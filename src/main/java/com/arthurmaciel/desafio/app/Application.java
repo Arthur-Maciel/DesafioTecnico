@@ -13,6 +13,8 @@ import com.arthurmaciel.desafio.decode.FileDecoder;
 
 public class Application {
 	
+	private static final String PATH = "/home/data/in";
+	
 	public static void main(String args[]) {
 		FileDecoder decoder = new FileDecoder();
 		
@@ -20,7 +22,7 @@ public class Application {
 		
 		try {
 			WatchService watchService = FileSystems.getDefault().newWatchService();
-			Path path = Paths.get("/home/arthur/eclipse-workspace/DesafioTecnico/data/");			
+			Path path = Paths.get(PATH);			
 			
 			path.register(
 			          watchService, 
@@ -41,8 +43,10 @@ public class Application {
 			        }
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("Failed to keep watching the folder");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			System.out.println("Failed to keep watching the folder");
 		}
 	}
 	
