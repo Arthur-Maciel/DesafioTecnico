@@ -53,10 +53,7 @@ public class FileDecoder {
 				decodeWorstSalesman();
 
 			mostExpensiveSale();
-
-			System.out.println(report);
 			fileDAO.writeFile(report);
-
 		}
 	}
 
