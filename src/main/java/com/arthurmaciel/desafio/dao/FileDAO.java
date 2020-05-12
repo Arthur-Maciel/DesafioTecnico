@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.arthurmaciel.desafio.exception.FileDoesNotExistException;
@@ -14,17 +13,12 @@ import com.arthurmaciel.desafio.model.Report;
 
 public class FileDAO {
 	
-	private static final String OUTPUTPATH = "/home/data/out";
+	private static final String OUTPUTPATH = "/home/data/out/";
 	private static final String FILEEXTENSION = ".report.dat";
 	private static final String REPORTCOSTUMERS = "• Amount of clients in the input file: ";
 	private static final String REPORTSALESMEN = "• Amount of salesman in the input file: ";
 	private static final String REPORTSALE = "• ID of the most expensive sale: ";
 	private static final String REPORTWORSTSALESMAN = "• Worst salesman: ";
-	private List<String> filesDone;
-	
-	public FileDAO() {
-		filesDone = new LinkedList<String>();
-	}
 
 	public List<String> readFile(String path) {
 		try {
@@ -44,14 +38,8 @@ public class FileDAO {
 	        printWriter.println(REPORTSALE + report.getMostExpensiveSaleId());
 	        printWriter.println(REPORTWORSTSALESMAN + report.getWorstSalesman());
 	        printWriter.close();
-	        
-	        filesDone.add(report.getFileName());
 		} catch (IOException e) {
 			throw new FolderDoesNotExistException();
 		}
-	}
-	
-	public List<String> getFilesDone(){
-		return this.filesDone;
 	}
 }

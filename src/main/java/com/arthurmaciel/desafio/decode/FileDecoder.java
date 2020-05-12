@@ -25,8 +25,8 @@ public class FileDecoder {
 	private ModelDAO modelDAO;
 	private static final String SPLITLINE = "ç";
 	private static final int MAXSIZESPLIT = 4;
-	private static final String FILEPATH = "/home/data/in";
-	
+	private static final String FILEPATH = "/home/data/in/";
+
 	public FileDecoder() {
 		fileDAO = new FileDAO();
 	}
@@ -34,37 +34,51 @@ public class FileDecoder {
 	public void decodeFile() {
 		for(String file : getFilesFromFolder()) {
 
-			if(!isFileDone(getFileName(file))) {
+			List<String> lines = fileDAO.readFile(file);
+			report = new Report(getFileName(file));
+			modelDAO = new ModelDAO();
 
-				List<String> lines = fileDAO.readFile(file);
-				report = new Report(getFileName(file));
-				modelDAO = new ModelDAO();
-
-				for(String line : lines) {
-					String[] split = line.split(SPLITLINE);
-					if(split.length == MAXSIZESPLIT) {
-						try {
-							checkID(split);	
-						}catch(InvalidIDException e) {
-							System.out.println(e + "\n File:" + getFileName(file));
-						}
-					}					
-				}
-				
-				if(modelDAO.getSalesmen().size() != 0)
-					decodeWorstSalesman();
-				
-				mostExpensiveSale();
-				fileDAO.writeFile(report);
+			for(String line : lines) {
+				String[] split = line.split(SPLITLINE);
+				if(split.length == MAXSIZESPLIT) {
+					try {
+						checkID(split);	
+					}catch(InvalidIDException e) {
+						System.out.println(e + "\n File:" + getFileName(file));
+					}
+				}					
 			}
+
+			if(modelDAO.getSalesmen().size() != 0)
+				decodeWorstSalesman();
+
+			mostExpensiveSale();
+			fileDAO.writeFile(report);
 		}
 	}
 
-	private boolean isFileDone(String fileName) {
-		if(fileDAO.getFilesDone().contains(fileName)) {
-			return true;
-		} 
-		return false;
+	public void decodeFile(String file) {
+
+		List<String> lines = fileDAO.readFile(file);
+		report = new Report(getFileName(file));
+		modelDAO = new ModelDAO();
+
+		for(String line : lines) {
+			String[] split = line.split(SPLITLINE);
+			if(split.length == MAXSIZESPLIT) {
+				try {
+					checkID(split);	
+				}catch(InvalidIDException e) {
+					System.out.println(e + "\n File:" + getFileName(file));
+				}
+			}					
+		}
+		if(modelDAO.getSalesmen().size() != 0)
+			decodeWorstSalesman();
+
+		mostExpensiveSale();
+		fileDAO.writeFile(report);
+
 	}
 
 	private void checkID(String[] line) {

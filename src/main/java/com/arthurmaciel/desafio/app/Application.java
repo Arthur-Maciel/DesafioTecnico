@@ -13,7 +13,7 @@ import com.arthurmaciel.desafio.decode.FileDecoder;
 
 public class Application {
 	
-	private static final String PATH = "/home/data/in";
+	private static final String PATH = "/home/data/in/";
 	
 	public static void main(String args[]) {
 		FileDecoder decoder = new FileDecoder();
@@ -35,9 +35,10 @@ public class Application {
 			                System.out.println(
 			                  "Event kind:" + event.kind().name() 
 			                    + ". File affected: " + event.context() + ".");
+			                Thread.sleep(2000);
+				        	decoder.decodeFile(PATH+event.context().toString());
 			            }
-			        	Thread.sleep(2000);
-			        	decoder.decodeFile();
+			        	
 			            key.reset();
 			        }
 		} catch (IOException e) {
