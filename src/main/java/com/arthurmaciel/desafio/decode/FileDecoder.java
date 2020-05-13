@@ -59,8 +59,10 @@ public class FileDecoder {
 
 			if(modelDAO.getSalesmen().size() != 0)
 				decodeWorstSalesman();
-
-			mostExpensiveSale();
+			
+			if(modelDAO.getSales().size() != 0)
+				mostExpensiveSale();
+			
 			fileDAO.writeFile(report);
 		}
 	}
